@@ -1,5 +1,7 @@
 # Elysia Session
 
+![badge](https://github.com/gaurishhs/elysia-session/actions/workflows/npm-publish.yml/badge.svg)
+
 ## Features
 
 - Runs in Bun, Cloudflare Workers, and those supported by Elysia.
