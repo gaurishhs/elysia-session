@@ -9,8 +9,11 @@ interface CookieStoreOptions {
 }
 
 export class CookieStore implements Store {
-    constructor(private options: CookieStoreOptions) {
-        if (!options.cookieName) options.cookieName = 'session';
+    private options: CookieStoreOptions;
+    constructor(options?: CookieStoreOptions) {
+        this.options = options || {
+            cookieName: 'session'
+        }
     }
 
     getSession(id?: string | undefined, ctx?: Context) {
