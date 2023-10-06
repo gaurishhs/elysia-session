@@ -7,8 +7,8 @@ import { CookieOptions } from "elysia/dist/cookie";
 
 export interface SessionOptions {
     store: Store;
-    cookieName: string;
     expireAfter: number;
+    cookieName?: string;
     cookieOptions?: CookieOptions
 }
 

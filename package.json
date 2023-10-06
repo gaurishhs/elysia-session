@@ -1,6 +1,6 @@
 {
   "name": "elysia-session",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "type": "module",
   "author": {
     "name": "Gaurish Sethia",
@@ -11,13 +11,8 @@
     "type": "git",
     "url": "https://github.com/gaurishhs/elysia-session"
   },
-  "main": "./dist/index.js",
-  "exports": {
-    "require": "./dist/index.js",
-    "import": "./dist/index.js",
-    "node": "./dist/index.js",
-    "default": "./dist/index.js"
-  },
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/index.js",
   "types": "./src/index.ts",
   "bugs": "https://github.com/gaurishhs/elysia-session/issues",
   "homepage": "https://github.com/gaurishhs/elysia-session",

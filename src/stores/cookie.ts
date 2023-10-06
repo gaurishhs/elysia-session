@@ -5,7 +5,7 @@ import { SessionData } from "../session";
 
 interface CookieStoreOptions {
     cookieOptions?: CookieOptions;
-    cookieName: string;
+    cookieName?: string;
 }
 
 export class CookieStore implements Store {
@@ -14,26 +14,23 @@ export class CookieStore implements Store {
     }
 
     getSession(id?: string | undefined, ctx?: Context) {
-        const cookie = ctx?.cookie[this.options.cookieName];
-        console.log(cookie?.value)
-        const session_data = cookie ? JSON.parse(cookie.value) as SessionData : null;
-
-        return session_data;
+        const cookie = ctx?.cookie[this.options.cookieName!];
+        return cookie ? JSON.parse(cookie.value) as SessionData : null;
     }
 
     createSession(data: SessionData, id: string, ctx?: Context): void | Promise<void> { 
-        ctx?.cookie[this.options.cookieName]!.set({
+        ctx?.cookie[this.options.cookieName!].set({
             value: JSON.stringify(data),
             ...this.options.cookieOptions
         })
     }
 
     deleteSession(id: string, ctx?: Context): void | Promise<void> {
-        delete ctx?.cookie[this.options.cookieName]
+        delete ctx?.cookie[this.options.cookieName!]
     }
 
     persistSession(data: SessionData, id: string, ctx?: Context): void | Promise<void> {
-        ctx?.cookie[this.options.cookieName]!.set({
+        ctx?.cookie[this.options.cookieName!].set({
             value: JSON.stringify(data),
             ...this.options.cookieOptions
         })
