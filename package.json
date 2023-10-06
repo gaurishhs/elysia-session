@@ -1,6 +1,6 @@
 {
   "name": "elysia-session",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "type": "module",
   "author": {
     "name": "Gaurish Sethia",
@@ -11,8 +11,44 @@
     "type": "git",
     "url": "https://github.com/gaurishhs/elysia-session"
   },
-  "main": "./dist/cjs/index.js",
-  "module": "./dist/index.js",
+  "main": "./dist/index.js",
+  "exports": {
+    ".": {
+      "require": "./dist/cjs/index.js",
+      "import": "./dist/index.js",
+      "node": "./dist/index.js",
+      "default": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./store": {
+      "require": "./dist/cjs/store.js",
+      "import": "./dist/store.js",
+      "node": "./dist/store.js",
+      "default": "./dist/store.js",
+      "types": "./dist/store.d.ts"
+    },
+    "./stores/memory": {
+      "require": "./dist/cjs/stores/memory.js",
+      "import": "./dist/stores/memory.js",
+      "node": "./dist/stores/memory.js",
+      "default": "./dist/stores/memory.js",
+      "types": "./dist/stores/memory.d.ts"
+    },
+    "./stores/cookie": {
+      "require": "./dist/cjs/stores/cookie.js",
+      "import": "./dist/stores/cookie.js",
+      "node": "./dist/stores/cookie.js",
+      "default": "./dist/stores/cookie.js",
+      "types": "./dist/stores/cookie.d.ts"
+    },
+    "./stores/bun/sqlite": {
+      "require": "./dist/cjs/stores/bun/sqlite.js",
+      "import": "./dist/stores/bun/sqlite.js",
+      "node": "./dist/stores/bun/sqlite.js",
+      "default": "./dist/stores/bun/sqlite.js",
+      "types": "./dist/stores/bun/sqlite.d.ts"
+    }
+  },
   "types": "./src/index.ts",
   "bugs": "https://github.com/gaurishhs/elysia-session/issues",
   "homepage": "https://github.com/gaurishhs/elysia-session",

@@ -14,22 +14,14 @@
 bun a elysia-session
 ```
 
-## Usage
+## Documentation
+
+There are 3 stores in-built in this package:
+
+1. Memory Store
+2. Cookie Store
+3. Bun SQLite Store
+
+You can implement your own store by implementing the `Store` interface as shown below:
 
 ```ts
-import Elysia from "elysia";
-import { sessionPlugin } from "./src";
-import { CookieStore } from "./src/stores/cookie";
-
-new Elysia().use(sessionPlugin({
-    store: new CookieStore({
-        cookieName: 'session'
-    }),
-    cookieName: 'session',
-    expireAfter: 15 * 60, // 15 minutes
-})).get('/', ({ session }) => {
-    session.set('test', 'test')
-
-    return session.get('test')
-}).listen(3000)
-```
