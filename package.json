@@ -1,6 +1,6 @@
 {
   "name": "elysia-session",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "type": "module",
   "author": {
     "name": "Gaurish Sethia",
@@ -19,6 +19,13 @@
       "node": "./dist/index.js",
       "default": "./dist/index.js",
       "types": "./dist/index.d.ts"
+    },
+    "./session": {
+      "require": "./dist/cjs/session.js",
+      "import": "./dist/session.js",
+      "node": "./dist/session.js",
+      "default": "./dist/session.js",
+      "types": "./dist/session.d.ts"
     },
     "./store": {
       "require": "./dist/cjs/store.js",
