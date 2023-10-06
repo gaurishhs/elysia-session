@@ -65,6 +65,70 @@ new Elysia()
   })).get("/", () => 'Hi').listen(3000);
 ```
 
-### Flash Messages
+#### Cookie Store
 
 ```ts
+import { sessionPlugin } from "elysia-session";
+import { CookieStore } from "elysia-session/stores/cookie"
+import Elysia from "elysia";
+
+new Elysia()
+  .use(sessionPlugin({
+    cookieName: "session", // Optional, defaults to "session"
+    store: new CookieStore({
+      cookieOptions: {
+        httpOnly: true
+      }, // Optional, defaults to {}
+      cookieName: "session" // Optional, defaults to "session"
+    }),
+    expireAfter: 15 * 60, // 15 minutes
+  })).get("/", () => 'Hi').listen(3000);
+```
+
+#### Bun SQLite Store
+
+```ts
+import { sessionPlugin } from "elysia-session";
+import { BunSQLiteStore } from "elysia-session/stores/bun/sqlite"
+import { Database } from "bun:sqlite";
+import Elysia from "elysia";
+
+const database = new Database(":memory:");
+// 2nd argument is the table name
+const store = new BunSQLiteStore(database, "sessions");
+
+new Elysia()
+  .use(sessionPlugin({
+    cookieName: "session", // Optional, default is "session"
+    store,
+    expireAfter: 15 * 60, // 15 minutes
+  })).get("/", () => 'Hi').listen(3000);
+```
+
+### Flash Messages
+
+Flash messages are one-off messages that are deleted once they are read. They are useful for displaying error messages, etc.
+
+```ts
+import { sessionPlugin } from "elysia-session";
+import { MemoryStore } from "elysia-session/stores/memory"
+import Elysia from "elysia";
+
+new Elysia()
+  .use(sessionPlugin({
+    cookieName: "session", // Optional
+    store: new MemoryStore(),
+    expireAfter: 15 * 60, // 15 minutes
+  })).get("/", (ctx) => {
+    ctx.session.flash("error", "Something went wrong!");
+    return 'Hi';
+  }).listen(3000);
+```
+
+## License
+
+MIT
+
+## Author
+
+Copyright (c) 2023 Gaurish Sethia, All rights reserved.
