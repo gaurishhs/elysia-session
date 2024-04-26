@@ -79,6 +79,7 @@
   },
   "dependencies": {
     "iron-webcrypto": "^0.10.1",
-    "nanoid": "^5.0.1"
+    "nanoid": "^5.0.1",
+    "typescript": "^5.4.5"
   }
 }
