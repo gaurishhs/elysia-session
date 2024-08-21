@@ -185,6 +185,9 @@ export class MongooseStore implements Store {
 
 Flash messages are one-off messages that are deleted once they are read. They are useful for displaying error messages, etc.
 
+### Session Data
+
+Using '/testsession', see how this can be used
 ```ts
 import { sessionPlugin } from "elysia-session";
 import { MemoryStore } from "elysia-session/stores/memory"
@@ -198,7 +201,24 @@ new Elysia()
   })).get("/", (ctx) => {
     ctx.session.flash("error", "Something went wrong!");
     return 'Hi';
-  }).listen(3000);
+  }).get('/testsession', (ctx) => {
+    if (ctx.session.get('xx') === null) {
+      ctx.session.set('xx', 2)
+      console.log(2)
+    } else {
+      ctx.session.set('xx', ctx.session.get('xx') + 3)
+      console.log(5)
+    }
+    if (ctx.session.get('yy') === null) {
+      ctx.session.set('yy', 1)
+      console.log(1)
+    } else {
+      ctx.session.set('yy', ctx.session.get('yy') + 1)
+      console.log(3)
+    }
+    return JSON.stringify(ctx.session)
+  })
+  .listen(3000);
 ```
 
 ## License
@@ -208,3 +228,4 @@ MIT
 ## Author
 
 Copyright (c) 2023 Gaurish Sethia, All rights reserved.
+Updates 2024 Jay Kelkar
