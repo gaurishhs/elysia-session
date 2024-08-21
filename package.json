@@ -1,6 +1,6 @@
 {
   "name": "elysia-session",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "type": "module",
   "author": {
     "name": "Gaurish Sethia",
@@ -75,11 +75,11 @@
     "@typescript-eslint/parser": "^6.7.4",
     "bun-types": "latest",
     "elysia": "^0.7.15",
-    "eslint": "^8.50.0"
+    "eslint": "^8.50.0", 
+    "typescript": "^5.4.5"
   },
   "dependencies": {
     "iron-webcrypto": "^0.10.1",
-    "nanoid": "^5.0.1",
-    "typescript": "^5.4.5"
+    "nanoid": "^5.0.1"
   }
 }
