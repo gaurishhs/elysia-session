@@ -1,9 +1,9 @@
-import type Elysia from "elysia";
-import { Store } from "./store";
-import { Session, SessionData } from "./session";
+import Elysia from "elysia";
+import type { CookieOptions } from "elysia";
 import { nanoid } from "nanoid";
+import { Session, type SessionData } from "./session";
+import type { Store } from "./store";
 import { CookieStore } from "./stores/cookie";
-import { CookieOptions } from "elysia/dist/cookie";
 
 export interface SessionOptions {
   store: Store;
@@ -12,19 +12,19 @@ export interface SessionOptions {
   cookieOptions?: CookieOptions;
 }
 
-export const sessionPlugin = (options: SessionOptions) => (app: Elysia) => {
-  return app
+export const sessionPlugin = (options: SessionOptions) =>
+  new Elysia()
     .derive(async (ctx) => {
       const store = options.store;
       const session = new Session();
       const cookieName = options.cookieName || "session";
       const cookie = ctx.cookie[cookieName];
-      let sid: string = "";
+      let sid: string | undefined = "";
       let sessionData: SessionData | null | undefined;
       let createRequired = false;
 
       if (cookie) {
-        sid = cookie.value
+        sid = cookie.value;
         try {
           sessionData = await store.getSession(sid, ctx);
         } catch {
@@ -66,30 +66,27 @@ export const sessionPlugin = (options: SessionOptions) => (app: Elysia) => {
           ...options.cookieOptions,
         });
       }
-      sid = cookie.value
+      sid = cookie.value;
       await store.persistSession(session.getCache(), sid, ctx);
 
       if (session.getCache()._delete) {
         await store.deleteSession(sid, ctx);
-        cookie.remove()
+        cookie.remove();
       }
 
       return {
         session,
       };
     })
-    .onResponse(async (ctx) => {
+    .onAfterResponse(async (ctx) => {
       const store = options.store;
       const session = ctx.session;
-      const cookieName = options.cookieName || "session";
+      const cookieName = options.cookieName ?? "session";
       const cookie = ctx.cookie[cookieName];
       let sid = "";
-      let sessionData;
-      let createRequired = false;
       if (cookie) {
-        sid = cookie.value
+        sid = cookie.value!;
         session.reUpdate(options.expireAfter);
         await store.persistSession(session.getCache(), sid, ctx);
       }
     });
-};
