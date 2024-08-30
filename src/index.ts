@@ -83,9 +83,9 @@ export const sessionPlugin = (options: SessionOptions) =>
       const session = ctx.session;
       const cookieName = options.cookieName ?? "session";
       const cookie = ctx.cookie[cookieName];
-      let sid = "";
+      let sid: string | undefined  = "";
       if (cookie) {
-        sid = cookie.value!;
+        sid = cookie.value;
         session.reUpdate(options.expireAfter);
         await store.persistSession(session.getCache(), sid, ctx);
       }
