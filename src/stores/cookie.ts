@@ -1,4 +1,4 @@
-import { Cookie, CookieOptions } from "elysia/dist/cookie";
+import { CookieOptions } from "elysia";
 import { Context } from "elysia";
 import { Store } from "../store"
 import { SessionData } from "../session";
@@ -18,7 +18,11 @@ export class CookieStore implements Store {
 
     getSession(id?: string | undefined, ctx?: Context) {
         const cookie = ctx?.cookie[this.options.cookieName!];
-        return cookie ? JSON.parse(cookie.value) as SessionData : null;
+        let result: SessionData | null = null;
+        try {
+            result = JSON.parse(cookie?.value ?? "") as SessionData
+        } catch {}
+        return result;
     }
 
     createSession(data: SessionData, id: string, ctx?: Context): void | Promise<void> { 
